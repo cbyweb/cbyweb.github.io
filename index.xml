@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cby的博客</title>
+    <link>https://cbyweb.github.io/</link>
+    <description>Recent content on cby的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 14 Apr 2022 17:35:39 +0800</lastBuildDate><atom:link href="https://cbyweb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ElasticSearch</title>
+      <link>https://cbyweb.github.io/posts/demo/</link>
+      <pubDate>Thu, 14 Apr 2022 17:35:39 +0800</pubDate>
+      
+      <guid>https://cbyweb.github.io/posts/demo/</guid>
+      <description>ElasticSearch  搜索
+ lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！
+包含：索引结构！读写索引的工具！排序，搜索规则&amp;hellip;.工具类！
+Lucene和ElasticSearch关系：
+ElasticSearch是基于Lucene做了封装和增强
+ElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。
+Elasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+ 谁在用？
+ 百度，搜索引擎，电商网站，gitbub，stackoverflow等等
+Solr简介 也是基于Lucene就行封装的。
+ElasticSearch和Solr的比较 ElasticSearch vs Solr 总结
+1、es基本是开箱即用，非常简单。Solr安装略微复杂。
+2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能
+3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式
+4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。
+5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用
+ ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。
+ElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！
+java开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常
+ 下载
+ 地址：https://www.elastic.co/cn/elasticsearch/
+ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;amp;O=D kibana:https://www.elastic.co/cn/downloads/kibana
+ 安装
+ 1、解压
+2、熟悉目录
+bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options java 虚拟机相关的配置 	elasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志!</description>
+    </item>
+    
+  </channel>
+</rss>

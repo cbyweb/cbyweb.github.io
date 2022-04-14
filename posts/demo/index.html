@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>ElasticSearch | cby的博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="ElasticSearch  搜索
+ lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！
+包含：索引结构！读写索引的工具！排序，搜索规则&hellip;.工具类！
+Lucene和ElasticSearch关系：
+ElasticSearch是基于Lucene做了封装和增强
+ElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。
+Elasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+ 谁在用？
+ 百度，搜索引擎，电商网站，gitbub，stackoverflow等等
+Solr简介 也是基于Lucene就行封装的。
+ElasticSearch和Solr的比较 ElasticSearch vs Solr 总结
+1、es基本是开箱即用，非常简单。Solr安装略微复杂。
+2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能
+3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式
+4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。
+5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用
+ ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。
+ElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！
+java开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常
+ 下载
+ 地址：https://www.elastic.co/cn/elasticsearch/
+ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D kibana:https://www.elastic.co/cn/downloads/kibana
+ 安装
+ 1、解压
+2、熟悉目录
+bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options java 虚拟机相关的配置 	elasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志!">
+<meta name="author" content="">
+<link rel="canonical" href="https://cbyweb.github.io/posts/demo/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.48a18943c2fc15c38a372b8dde1f5e5dc0bc64fa6cb90f5a817d2f8c76b7f3ae.css" integrity="sha256-SKGJQ8L8FcOKNyuN3h9eXcC8ZPpsuQ9agX0vjHa3864=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://cbyweb.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cbyweb.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://cbyweb.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://cbyweb.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://cbyweb.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="ElasticSearch" />
+<meta property="og:description" content="ElasticSearch  搜索
+ lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！
+包含：索引结构！读写索引的工具！排序，搜索规则&hellip;.工具类！
+Lucene和ElasticSearch关系：
+ElasticSearch是基于Lucene做了封装和增强
+ElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。
+Elasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+ 谁在用？
+ 百度，搜索引擎，电商网站，gitbub，stackoverflow等等
+Solr简介 也是基于Lucene就行封装的。
+ElasticSearch和Solr的比较 ElasticSearch vs Solr 总结
+1、es基本是开箱即用，非常简单。Solr安装略微复杂。
+2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能
+3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式
+4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。
+5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用
+ ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。
+ElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！
+java开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常
+ 下载
+ 地址：https://www.elastic.co/cn/elasticsearch/
+ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D kibana:https://www.elastic.co/cn/downloads/kibana
+ 安装
+ 1、解压
+2、熟悉目录
+bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options java 虚拟机相关的配置 	elasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cbyweb.github.io/posts/demo/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-14T17:35:39&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-14T17:35:39&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch"/>
+<meta name="twitter:description" content="ElasticSearch  搜索
+ lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！
+包含：索引结构！读写索引的工具！排序，搜索规则&hellip;.工具类！
+Lucene和ElasticSearch关系：
+ElasticSearch是基于Lucene做了封装和增强
+ElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。
+Elasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+ 谁在用？
+ 百度，搜索引擎，电商网站，gitbub，stackoverflow等等
+Solr简介 也是基于Lucene就行封装的。
+ElasticSearch和Solr的比较 ElasticSearch vs Solr 总结
+1、es基本是开箱即用，非常简单。Solr安装略微复杂。
+2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能
+3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式
+4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。
+5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用
+ ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。
+ElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！
+java开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常
+ 下载
+ 地址：https://www.elastic.co/cn/elasticsearch/
+ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D kibana:https://www.elastic.co/cn/downloads/kibana
+ 安装
+ 1、解压
+2、熟悉目录
+bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options java 虚拟机相关的配置 	elasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://cbyweb.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "ElasticSearch",
+      "item": "https://cbyweb.github.io/posts/demo/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ElasticSearch",
+  "name": "ElasticSearch",
+  "description": "ElasticSearch  搜索\n lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！\n包含：索引结构！读写索引的工具！排序，搜索规则\u0026hellip;.工具类！\nLucene和ElasticSearch关系：\nElasticSearch是基于Lucene做了封装和增强\nElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。\nElasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。\n 谁在用？\n 百度，搜索引擎，电商网站，gitbub，stackoverflow等等\nSolr简介 也是基于Lucene就行封装的。\nElasticSearch和Solr的比较 ElasticSearch vs Solr 总结\n1、es基本是开箱即用，非常简单。Solr安装略微复杂。\n2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能\n3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式\n4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。\n5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用\n ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。\nElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！\njava开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常\n 下载\n 地址：https://www.elastic.co/cn/elasticsearch/\nElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N\u0026amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N\u0026amp;O=D kibana:https://www.elastic.co/cn/downloads/kibana\n 安装\n 1、解压\n2、熟悉目录\nbin 启动目录 config 配置文件 \tlog4j2 日志配置文件 \tjvm.options java 虚拟机相关的配置 \telasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志!",
+  "keywords": [
+    
+  ],
+  "articleBody": "ElasticSearch  搜索\n lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！\n包含：索引结构！读写索引的工具！排序，搜索规则….工具类！\nLucene和ElasticSearch关系：\nElasticSearch是基于Lucene做了封装和增强\nElasticSearch简介 Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。\nElasticsearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。\n 谁在用？\n 百度，搜索引擎，电商网站，gitbub，stackoverflow等等\nSolr简介 也是基于Lucene就行封装的。\nElasticSearch和Solr的比较 ElasticSearch vs Solr 总结\n1、es基本是开箱即用，非常简单。Solr安装略微复杂。\n2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能\n3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式\n4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。\n5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用\n ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。 Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。  6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。\nElasticSearch安装 声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！\njava开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常\n 下载\n 地址：https://www.elastic.co/cn/elasticsearch/\nElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N\u0026O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N\u0026O=D kibana:https://www.elastic.co/cn/downloads/kibana\n 安装\n 1、解压\n2、熟悉目录\nbin 启动目录 config 配置文件 \tlog4j2 日志配置文件 \tjvm.options java 虚拟机相关的配置 \telasticsearch.yml elasticsearch的配置文件！ lib 相关jar包 logs 日志! modules 功能模块 plugins 插件！ik分词器 3、启动，访问9200\n4、访问测试\n 安装可视化界面es head的插件！\n 需要node.js环境和前端基础\n1、下载地址：https://github.com/mobz/elasticsearch-head\n2、启动\nnpm install npm run start 3、连接测试发现，存在跨域问题：配置elasticsearch.yml文件允许跨域\nhttp.cors.enabled:true http.cors.allow-origin:\"*\" 4、重启es服务，再次连接\n把索引当做一个数据库！(可以建立索引（库) ，文档（库中的数据！））\n 这个head当做数据展示工具！后面所有的查询通过Kibana第三方工具\n 了解ELK\n 安装Kibana\n Kibana是一个针对ElasticSearch的开源分析及可视化平台，用来搜索、查看交互存储在ElasticSearch索引中的数据。使用Kibana，可以通过各种图表进行高级数据分析及展示。Kibana让海量数据更容易理解。它操作简单，基于浏览器的用户界面可以快速创建仪表板（dashboard）实时显示ElasticSearch查询动态。设置Kibana非常简单。无需编码或者额外的基础架构，几分钟内就可以完成Kibana安装并启动ElasticSearch索引监测。\n官网：https://www.elasitc.co/cn/kibana\nKibana版本要和ES一致！！！！\n下载完后，解压也需要一定时间！是一个标准工程1\n好处：ELK基本上都是拆箱即用！\n 启动测试：\n 1、解压后目录\n2、启动\n3、访问测试\n4、开发工具（Postman、curl、head、谷歌浏览器插件测试！）\n之后的所有操作都是在这里进行编写！\n5、汉化！修改Kibana.yml文件配置即可！zh-CN，重启！\nES核心概念 1、索引\n2、字段类型（maping）\n3、文档（documents）\n 概述\n es是如何去存储数据，数据结构是什么，又是如何实现搜索的呢？\n集群，节点，索引，类型，文档，分片，映射是什么？\n elasticsearch是面向文档的，关系型数据库和ElasticSearch客观对比！一切都是json！\n ElasticSearch（集群）中可以包含多个索引（数据库），每个索引中可以包含多个类型（表），每个类型下又包含多个文档（行），每个文档中又包含多个字段（列）。\n物理设计：\nElasticSearch在后台把每一个索引划分成多分片，每份分片可以在集群中的不同服务器间迁移\n一个人就是一个集群！默认的集群名字就是elasticsearch\n\n逻辑设计：\n一个索引类型中，包含多个文档，比如说文档1，文档2。当我们索引一篇文档时，可以通过这样的一些信息找到它：索引-类型-文档ID，通过这个组合我们就能索引到某个具体的文档。注意：ID不必是整数，实际上它是个字符串。\n 文档\n 就是一条条数据\nuser 1 zhangsan 3 2 cby 4  ElasticSearch是面向文档的，那么就意味着索引和搜索数据的最小单位是文档，ElasticSearch中，文档有几个重要的属性：\n 自我包含，一篇文档同时包含字段和对应的值，也就是同时包含key：value！ 可以是层次型的，一个文档中包含子文档，复杂的逻辑实体就是这么来的！（就是一个json对象！fastjson进行自动转换！） 灵活的结构，文档不依赖预先定义的模式，我们知道关系型数据库中，要提前定义字段才能使用，在ElasticSearch中，对于字段的非常灵活的，有时候，我们可以忽略该字段，或者动态的添加一个新的字段。  尽管我们可以随意地新增或忽略该字段，但是，每个字段的类型非常重要，比如一个年龄字段类型，可以是字符串也可以是整型。因为ElasticSearch会保存字段和类型之间的映射及其他的设置。这种映射具体到每一个映射的每种类型，这也是为什么ElasticSearch中，类型有时候也称为映射类型。\n 类型\n 类型是文档的逻辑容器，就像关系型数据库一样，表格是行的容器。类型中对于字段的定义称为映射，比如name 映射为字符串类型。我们说文档是无模式的，它们不需要拥有映射中所定义的所有字段，比如新增一个字段，那么ElasticSearch是这么做的呢？ElasticSearch会自动地将新字段加入映射，但是这个字段不确实它是什么类型，ElasticSearch就开始猜，如果这个值是18，那么ElasticSearch会认为它是整型。但是ElasticSearch也可能猜不对，所以最安全的方式就是提前定义好所需要的的映射，这点跟关系型数据库殊途同归了，先定义好字段，然后再使用。\n 索引\n 就是数据库！\n索引是映射类型的容器，ElasticSearch中的索引是一个非常大的文档集合。索引存储了映射类型的字段和其他设置。然后它们被存储到了各个分片上了。\n物理设计：节点和分片如何工作\n一个集群至少有一个节点，而一个节点就是一个ElasticSearch进程，节点可以有多个索引，如果你要创建索引，那么索引将会有5个分片（primary shard,又称主分片）构成的，每个主分片会有一个副本（replica shard，又称复制分片）\n上图是三个节点的集群，可以看到主分片和对应的复制分片都不会在同一个节点内，这样有利于某个节点挂掉了，数据也不至于丢失。实际上，一个分片是一个Lucene索引，一个包含倒排索引的文件目录，倒排索引的结构使得ElasticSearch在不扫描全部文档的情况下，就能告诉你哪些文件包含特定的关键字。不过，倒排索引是什么？\n 倒排索引\n ElasticSearch使用一种称为倒排索引的结构，采用Lucene倒排索引作为底层。这种结构适用于快速的全文搜索，一个索引由文档中所有不重复的列表构成，对于每一个词，都有一个包含它的文档列表。例如现有两个文档，每个文档包含如下内容：\nIK分词器插件  什么是IK分词器？\n 分词：即把一段中文或者别的划分成一个个的关键字，我们在搜索时候会把自己的信息进行分词，会把数据库中或者索引库中的数据进行分词，然后进行一个匹配操作，默认的中文分词是将一个字看成一个词，比如 ”我是小白“会被分成”我“，”是“，”小“， ”白“，这显然不符合要求，所以我们需要安装中文分词器IK来解决问题。\nIK提供了两个分词算法：ik_smart和ik_max_word，其中ik_smart为最少切分，ik_max_word为最细粒度划分！\n 安装\n 1、地址：https://github.com/medcl/elasticsearch-analysis-ik/\n2、下载完毕后，放入ElasticSearch插件中即可！注意版本对应！！！\n3、重启观察es，可以看到ik分词器被加载了！\n4、使用Kibana测试！\n 查看不同分词效果\n ik_smart和ik_max_word，其他中ik_smart为最少切分\nik_max_word为最细粒度划分！穷尽词库可能！！！\n自己需要的词，需要自己加到ik分词器的字典中！！！\n IK分词器增加自己的配置！\n 重启es\n以后，我们需要自己配置分词就在自己定义的dic文件中进行配置即可！！！\nRestFul风格说明 一种软件架构风格，而不是标准，知识提供一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。\n 基本测试\n 关于索引的操作 1、创建一个索引！\nPUT /索引名/类型名/文档id 执行后，自动增加了索引！数据也成功添加了\n3、那么name这个字段用不用指定类型呢？毕竟关系选哪个数据库是需要指定类型的！！！\n  字符串类型\n text、keyword    数值类型\n long、integer、short、byte、double、float、half float、scaled float    日期类型\n data    布尔值类型\n boolean    二进制类型\n binary    等等\n  4、指定字段的类型\n创建索引规则\n获得这个规则！\n5、查看默认的信息\n如果文档字段没有指定类型，那么es就会给我们默认配置字段类型！\n扩展：通过命令查看ElasticSearch索引情况！通过get _cat/ 可以获得es的当前很多信息！！\n 修改 提交还是可以使用PUT即可，覆盖更新\n 现在方法\n 删除索引\n 通过DELETE命令进行删除!根据你的请求路径来判断是删除索引还是删除文档记录！\n使用RestFul风格是es推荐的！\n关于文档的基本操作（重点）  基本操作\n 1、添加数据\nPUT /xiaobai/user/1 {  \"name\":\"小白说\",  \"age\":25,  \"desc\":\"我是学不死的小白\",  \"tags\":[\"技术宅\",\"温暖\"] } 2、查询获取数据 GET\n3、更新数据 PUT\n4、POST _updata，推荐使用这种方式\n简单的搜索！\nGET /xiaobai/user/1 简单的条件查询，可以根据默认的映射规则，产生基本的查询！\n 复杂操作搜索 select（排序，分页，高亮，模糊查询，精确查询！）\n 正常的条件查询会写成对应的文档，在_search的后面增加参数\n输出结果，不想要那么多！\n使用java操作es，所有的方法和对象就是这里面的key，hits，query ，match等\n 排序\n  分页查询!\n 数据索引下标还是从0开始的。\n 布尔值查询\n must(and)，所有条件都要符合\nshould（or）\nmust_not(not)\n过滤器 filter\n gt 大于 gte 大于等于 lt 小于 lte 小于等于   匹配多个条件，多个条件使用空格隔开，只要满足其一就可以被查出\n  精确查询！\n term查询是直接通过倒排索引指定的词条进行精确查询的！\n关于分词：\n  term，直接查询精确的\n  match，会使用分词器解析！（先分析文档，然后通过分析的文档进行查询！）\n  两个类型 text keyword\nkeyword类型字段不会被分词器解析\n 多值匹配精确查询\n  高亮查询\n 自定义高亮的样式\n",
+  "wordCount" : "247",
+  "inLanguage": "en",
+  "datePublished": "2022-04-14T17:35:39+08:00",
+  "dateModified": "2022-04-14T17:35:39+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cbyweb.github.io/posts/demo/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "cby的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://cbyweb.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://cbyweb.github.io/" accesskey="h" title="cby的博客 (Alt + H)">cby的博客</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      ElasticSearch
+    </h1>
+    <div class="post-meta"><span title='2022-04-14 17:35:39 +0800 CST'>April 14, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="elasticsearch">ElasticSearch<a hidden class="anchor" aria-hidden="true" href="#elasticsearch">#</a></h1>
+<blockquote>
+<p>搜索</p>
+</blockquote>
+<p>lucene是一套信息检索工具包！jar包！不包含搜索引擎系统！</p>
+<p>包含：索引结构！读写索引的工具！排序，搜索规则&hellip;.工具类！</p>
+<p>Lucene和ElasticSearch关系：</p>
+<p>ElasticSearch是基于Lucene做了封装和增强</p>
+<h2 id="elasticsearch简介">ElasticSearch简介<a hidden class="anchor" aria-hidden="true" href="#elasticsearch简介">#</a></h2>
+<p>Elasticsearch是一个基于<a href="https://baike.baidu.com/item/Lucene/6753302">Lucene</a>的搜索服务器。它提供了一个分布式多用户能力的<a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/7847410">全文搜索引擎</a>，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。</p>
+<p>Elasticsearch 是一个<strong>分布式</strong>、<strong>高扩展</strong>、<strong>高实时</strong>的搜索与<a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/6577123">数据分析</a>引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用Elasticsearch的水平伸缩性，能使数据在生产环境变得更有价值。Elasticsearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elasticsearch 数据库中，再通过分词控制器去将对应的语句分词，将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。</p>
+<blockquote>
+<p>谁在用？</p>
+</blockquote>
+<p>百度，搜索引擎，电商网站，gitbub，stackoverflow等等</p>
+<h2 id="solr简介">Solr简介<a hidden class="anchor" aria-hidden="true" href="#solr简介">#</a></h2>
+<p>也是基于Lucene就行封装的。</p>
+<h2 id="elasticsearch和solr的比较">ElasticSearch和Solr的比较<a hidden class="anchor" aria-hidden="true" href="#elasticsearch和solr的比较">#</a></h2>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151011037.png" alt="image-20210501151011037"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151021666.png" alt="image-20210501151021666"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151059259.png" alt="image-20210501151059259"  />
+</p>
+<p><strong>ElasticSearch vs Solr 总结</strong></p>
+<p>1、es基本是开箱即用，非常简单。Solr安装略微复杂。</p>
+<p>2、Solr利用Zookeeper进行分布式管理，而ElasticSearch自身带有分布式协调管理功能</p>
+<p>3、Solr支持更多格式的数据，比如JSON、XML、CSV，而ElasticSearch仅支持json文件格式</p>
+<p>4、Solr支持官方提供的功能更多，而ElasticSearch本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要Kibana友好支撑。</p>
+<p>5、Solr查询快，但更新索引时慢（即插入删除慢），用于电商等查询多应用</p>
+<ul>
+<li>ES建立索引快，即实时性查询快，用于Facebook新浪等搜索。</li>
+<li>Solr是传统搜索应用的有力解决方案，但是ElasticSearch更适用于新兴的实时搜索应用。</li>
+</ul>
+<p>6、Solr比较成熟，有一个更大，更成熟的用户、开发和贡献者社区，而相对ElasticSearch相对开发维护者较少，更新太快，学习使用成本较高。</p>
+<h1 id="elasticsearch安装">ElasticSearch安装<a hidden class="anchor" aria-hidden="true" href="#elasticsearch安装">#</a></h1>
+<p>声明：jdk1.8，最低要求！ElasticSearch客户端，界面工具！</p>
+<p>java开发，ElasticSearch的版本和我们之后对应的java的核心jar包版本对应！！！jkd环境正常</p>
+<blockquote>
+<p>下载</p>
+</blockquote>
+<p>地址：https://www.elastic.co/cn/elasticsearch/</p>
+<p>ElasticSearch: <a href="https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D">https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D</a>
+logstash: <a href="https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D">https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D</a>
+kibana:https://www.elastic.co/cn/downloads/kibana</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501153342518.png" alt="image-20210501153342518"  />
+</p>
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>1、解压</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501153428737.png" alt="image-20210501153428737"  />
+</p>
+<p>2、熟悉目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bin 启动目录
+</span></span><span style="display:flex;"><span>config 配置文件
+</span></span><span style="display:flex;"><span>	log4j2  日志配置文件
+</span></span><span style="display:flex;"><span>	jvm.options  java 虚拟机相关的配置
+</span></span><span style="display:flex;"><span>	elasticsearch.yml elasticsearch的配置文件！
+</span></span><span style="display:flex;"><span>lib 相关jar包
+</span></span><span style="display:flex;"><span>logs 日志!
+</span></span><span style="display:flex;"><span>modules 功能模块
+</span></span><span style="display:flex;"><span>plugins 插件！ik分词器
+</span></span></code></pre></div><p>3、启动，访问9200</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501154544473.png" alt="image-20210501154544473"  />
+</p>
+<p>4、访问测试</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501154730281.png" alt="image-20210501154730281"  />
+</p>
+<blockquote>
+<p>安装可视化界面es head的插件！</p>
+</blockquote>
+<p>需要node.js环境和前端基础</p>
+<p>1、下载地址：https://github.com/mobz/elasticsearch-head</p>
+<p>2、启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install 
+</span></span><span style="display:flex;"><span>npm run start
+</span></span></code></pre></div><p>3、连接测试发现，存在跨域问题：配置elasticsearch.yml文件允许跨域</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">http.cors.enabled:true</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">http.cors.allow-origin:&#34;*&#34;</span>
+</span></span></code></pre></div><p>4、重启es服务，再次连接</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501160952011.png" alt="image-20210501160952011"  />
+</p>
+<p>把索引当做一个数据库！(可以建立索引（库) ，文档（库中的数据！））</p>
+<blockquote>
+<p>这个head当做数据展示工具！后面所有的查询通过Kibana第三方工具</p>
+</blockquote>
+<p>了解ELK</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501162918706.png" alt="image-20210501162918706"  />
+</p>
+<blockquote>
+<p>安装Kibana</p>
+</blockquote>
+<p>Kibana是一个针对ElasticSearch的开源分析及可视化平台，用来搜索、查看交互存储在ElasticSearch索引中的数据。使用Kibana，可以通过各种图表进行高级数据分析及展示。Kibana让海量数据更容易理解。它操作简单，基于浏览器的用户界面可以快速创建仪表板（dashboard）实时显示ElasticSearch查询动态。设置Kibana非常简单。无需编码或者额外的基础架构，几分钟内就可以完成Kibana安装并启动ElasticSearch索引监测。</p>
+<p>官网：https://www.elasitc.co/cn/kibana</p>
+<p>Kibana版本要和ES一致！！！！</p>
+<p>下载完后，解压也需要一定时间！是一个标准工程1</p>
+<p>好处：ELK基本上都是拆箱即用！</p>
+<blockquote>
+<p>启动测试：</p>
+</blockquote>
+<p>1、解压后目录</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165008911.png" alt="image-20210501165008911"  />
+</p>
+<p>2、启动</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165643852.png" alt="image-20210501165643852"  />
+</p>
+<p>3、访问测试</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165823592.png" alt="image-20210501165823592"  />
+</p>
+<p>4、开发工具（Postman、curl、head、谷歌浏览器插件测试！）</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501170315976.png" alt="image-20210501170315976"  />
+</p>
+<p>之后的所有操作都是在这里进行编写！</p>
+<p>5、汉化！修改Kibana.yml文件配置即可！zh-CN，重启！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501170955346.png" alt="image-20210501170955346"  />
+</p>
+<h1 id="es核心概念">ES核心概念<a hidden class="anchor" aria-hidden="true" href="#es核心概念">#</a></h1>
+<p>1、索引</p>
+<p>2、字段类型（maping）</p>
+<p>3、文档（documents）</p>
+<blockquote>
+<p>概述</p>
+</blockquote>
+<p>es是如何去存储数据，数据结构是什么，又是如何实现搜索的呢？</p>
+<p>集群，节点，索引，类型，文档，分片，映射是什么？</p>
+<blockquote>
+<p>elasticsearch是面向文档的，关系型数据库和ElasticSearch客观对比！一切都是json！</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501175922696.png" alt="image-20210501175922696"  />
+</p>
+<p>ElasticSearch（集群）中可以包含多个索引（数据库），每个索引中可以包含多个类型（表），每个类型下又包含多个文档（行），每个文档中又包含多个字段（列）。</p>
+<p><strong>物理设计：</strong></p>
+<p>ElasticSearch在后台把每一个<strong>索引划分成多分片</strong>，每份分片可以在集群中的不同服务器间迁移</p>
+<p>一个人就是一个集群！默认的集群名字就是elasticsearch</p>
+<p><strong><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501180327258.png" alt="image-20210501180327258"  />
+</strong></p>
+<p><strong>逻辑设计</strong>：</p>
+<p>一个索引类型中，包含多个文档，比如说文档1，文档2。当我们索引一篇文档时，可以通过这样的一些信息找到它：索引-&gt;类型-&gt;文档ID，通过这个组合我们就能索引到某个具体的文档。注意：ID不必是整数，实际上它是个字符串。</p>
+<blockquote>
+<p>文档</p>
+</blockquote>
+<p>就是一条条数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>user
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> zhangsan <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> cby      <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span> 
+</span></span></code></pre></div><p>ElasticSearch是面向文档的，那么就意味着索引和搜索数据的最小单位是文档，ElasticSearch中，文档有几个重要的属性：</p>
+<ul>
+<li>自我包含，一篇文档同时包含字段和对应的值，也就是同时包含key：value！</li>
+<li>可以是层次型的，一个文档中包含子文档，复杂的逻辑实体就是这么来的！（就是一个json对象！fastjson进行自动转换！）</li>
+<li>灵活的结构，文档不依赖预先定义的模式，我们知道关系型数据库中，要提前定义字段才能使用，在ElasticSearch中，对于字段的非常灵活的，有时候，我们可以忽略该字段，或者动态的添加一个新的字段。</li>
+</ul>
+<p>尽管我们可以随意地新增或忽略该字段，但是，每个字段的类型非常重要，比如一个年龄字段类型，可以是字符串也可以是整型。因为ElasticSearch会保存字段和类型之间的映射及其他的设置。这种映射具体到每一个映射的每种类型，这也是为什么ElasticSearch中，类型有时候也称为映射类型。</p>
+<blockquote>
+<p>类型</p>
+</blockquote>
+<p>类型是文档的逻辑容器，就像关系型数据库一样，表格是行的容器。类型中对于字段的定义称为映射，比如name 映射为字符串类型。我们说文档是无模式的，它们不需要拥有映射中所定义的所有字段，比如新增一个字段，那么ElasticSearch是这么做的呢？ElasticSearch会自动地将新字段加入映射，但是这个字段不确实它是什么类型，ElasticSearch就开始猜，如果这个值是18，那么ElasticSearch会认为它是整型。但是ElasticSearch也可能猜不对，所以最安全的方式就是提前定义好所需要的的映射，这点跟关系型数据库殊途同归了，先定义好字段，然后再使用。</p>
+<blockquote>
+<p>索引</p>
+</blockquote>
+<p>就是数据库！</p>
+<p>索引是映射类型的容器，ElasticSearch中的索引是一个非常大的文档集合。索引存储了映射类型的字段和其他设置。然后它们被存储到了各个分片上了。</p>
+<p><strong>物理设计：节点和分片如何工作</strong></p>
+<p>一个集群至少有一个节点，而一个节点就是一个ElasticSearch进程，节点可以有多个索引，如果你要创建索引，那么索引将会有5个分片（primary shard,又称主分片）构成的，每个主分片会有一个副本（replica shard，又称复制分片）</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501183856057.png" alt="image-20210501183856057"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501183256952.png" alt="image-20210501183256952"  />
+</p>
+<p>上图是三个节点的集群，可以看到主分片和对应的复制分片都不会在同一个节点内，这样有利于某个节点挂掉了，数据也不至于丢失。实际上，一个分片是一个Lucene索引，一个包含<strong>倒排索引</strong>的文件目录，倒排索引的结构使得ElasticSearch在不扫描全部文档的情况下，就能告诉你哪些文件包含特定的关键字。不过，倒排索引是什么？</p>
+<blockquote>
+<p>倒排索引</p>
+</blockquote>
+<p>ElasticSearch使用一种称为倒排索引的结构，采用Lucene倒排索引作为底层。这种结构适用于快速的全文搜索，一个索引由文档中所有不重复的列表构成，对于每一个词，都有一个包含它的文档列表。例如现有两个文档，每个文档包含如下内容：</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184540907.png" alt="image-20210501184540907"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184718132.png" alt="image-20210501184718132"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184745517.png" alt="image-20210501184745517"  />
+</p>
+<h1 id="ik分词器插件">IK分词器插件<a hidden class="anchor" aria-hidden="true" href="#ik分词器插件">#</a></h1>
+<blockquote>
+<p>什么是IK分词器？</p>
+</blockquote>
+<p>分词：即把一段中文或者别的划分成一个个的关键字，我们在搜索时候会把自己的信息进行分词，会把数据库中或者索引库中的数据进行分词，然后进行一个匹配操作，默认的中文分词是将一个字看成一个词，比如 ”我是小白“会被分成”我“，”是“，”小“， ”白“，这显然不符合要求，所以我们需要安装中文分词器IK来解决问题。</p>
+<p>IK提供了两个分词算法：ik_smart和ik_max_word，其中ik_smart为最少切分，ik_max_word为最细粒度划分！</p>
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>1、地址：https://github.com/medcl/elasticsearch-analysis-ik/</p>
+<p>2、下载完毕后，放入ElasticSearch插件中即可！注意版本对应！！！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501203947744.png" alt="image-20210501203947744"  />
+</p>
+<p>3、重启观察es，可以看到ik分词器被加载了！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204117838.png" alt="image-20210501204117838"  />
+</p>
+<p>4、使用Kibana测试！</p>
+<blockquote>
+<p>查看不同分词效果</p>
+</blockquote>
+<p>ik_smart和ik_max_word，其他中ik_smart为最少切分</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204420004.png" alt="image-20210501204420004"  />
+</p>
+<p>ik_max_word为最细粒度划分！穷尽词库可能！！！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204337918.png" alt="image-20210501204337918"  />
+</p>
+<p>自己需要的词，需要自己加到ik分词器的字典中！！！</p>
+<blockquote>
+<p>IK分词器增加自己的配置！</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501205102124.png" alt="image-20210501205102124"  />
+</p>
+<p>重启es</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501205814955.png" alt="image-20210501205814955"  />
+</p>
+<p>以后，我们需要自己配置分词就在自己定义的dic文件中进行配置即可！！！</p>
+<h1 id="restful风格说明">RestFul风格说明<a hidden class="anchor" aria-hidden="true" href="#restful风格说明">#</a></h1>
+<p>一种软件架构风格，而不是标准，知识提供一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501210335500.png" alt="image-20210501210335500"  />
+</p>
+<blockquote>
+<p>基本测试</p>
+</blockquote>
+<h1 id="关于索引的操作">关于索引的操作<a hidden class="anchor" aria-hidden="true" href="#关于索引的操作">#</a></h1>
+<p>1、创建一个索引！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PUT /索引名/类型名/文档id
+</span></span></code></pre></div><p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502101336469.png" alt="image-20210502101336469"  />
+</p>
+<p>执行后，自动增加了索引！数据也成功添加了</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502101644131.png" alt="image-20210502101644131"  />
+</p>
+<p>3、那么name这个字段用不用指定类型呢？毕竟关系选哪个数据库是需要指定类型的！！！</p>
+<ul>
+<li>
+<p>字符串类型</p>
+<ul>
+<li>text、keyword</li>
+</ul>
+</li>
+<li>
+<p>数值类型</p>
+<ul>
+<li>long、integer、short、byte、double、float、half float、scaled float</li>
+</ul>
+</li>
+<li>
+<p>日期类型</p>
+<ul>
+<li>data</li>
+</ul>
+</li>
+<li>
+<p>布尔值类型</p>
+<ul>
+<li>boolean</li>
+</ul>
+</li>
+<li>
+<p>二进制类型</p>
+<ul>
+<li>binary</li>
+</ul>
+</li>
+<li>
+<p>等等</p>
+</li>
+</ul>
+<p>4、指定字段的类型</p>
+<p>创建索引规则</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502102918420.png" alt="image-20210502102918420"  />
+</p>
+<p>获得这个规则！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103034887.png" alt="image-20210502103034887"  />
+</p>
+<p>5、查看默认的信息</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103348650.png" alt="image-20210502103348650"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103446307.png" alt="image-20210502103446307"  />
+</p>
+<p>如果文档字段没有指定类型，那么es就会给我们默认配置字段类型！</p>
+<p>扩展：通过命令查看ElasticSearch索引情况！通过get _cat/ 可以获得es的当前很多信息！！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502104156461.png" alt="image-20210502104156461"  />
+</p>
+<blockquote>
+<p>修改 提交还是可以使用PUT即可，覆盖更新</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502104548235.png" alt="image-20210502104548235"  />
+</p>
+<p>现在方法</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502105932404.png" alt="image-20210502105932404"  />
+</p>
+<blockquote>
+<p>删除索引</p>
+</blockquote>
+<p>通过DELETE命令进行删除!根据你的请求路径来判断是删除索引还是删除文档记录！</p>
+<p>使用RestFul风格是es推荐的！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502110037997.png" alt="image-20210502110037997"  />
+</p>
+<h1 id="关于文档的基本操作重点">关于文档的基本操作（重点）<a hidden class="anchor" aria-hidden="true" href="#关于文档的基本操作重点">#</a></h1>
+<blockquote>
+<p>基本操作</p>
+</blockquote>
+<p>1、添加数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PUT /xiaobai/user/1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;小白说&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;age&#34;</span>:25,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;desc&#34;</span>:<span style="color:#e6db74">&#34;我是学不死的小白&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;tags&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;技术宅&#34;</span>,<span style="color:#e6db74">&#34;温暖&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111058712.png" alt="image-20210502111058712"  />
+</p>
+<p>2、查询获取数据  GET</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111555541.png" alt="image-20210502111555541"  />
+</p>
+<p>3、更新数据 PUT</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111720622.png" alt="image-20210502111720622"  />
+</p>
+<p>4、POST    _updata，推荐使用这种方式</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502112157027.png" alt="image-20210502112157027"  />
+</p>
+<p>简单的搜索！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GET /xiaobai/user/1
+</span></span></code></pre></div><p>简单的条件查询，可以根据默认的映射规则，产生基本的查询！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502112953949.png" alt="image-20210502112953949"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502113312815.png" alt="image-20210502113312815"  />
+</p>
+<blockquote>
+<p>复杂操作搜索 select（排序，分页，高亮，模糊查询，精确查询！）</p>
+</blockquote>
+<p>正常的条件查询会写成对应的文档，在_search的后面增加参数</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502113811705.png" alt="image-20210502113811705"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502114615688.png" alt="image-20210502114615688"  />
+</p>
+<p>输出结果，不想要那么多！</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115023035.png" alt="image-20210502115023035"  />
+</p>
+<p>使用java操作es，所有的方法和对象就是这里面的key，hits，query ，match等</p>
+<blockquote>
+<p>排序</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115350389.png" alt="image-20210502115350389"  />
+</p>
+<blockquote>
+<p>分页查询!</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115700490.png" alt="image-20210502115700490"  />
+</p>
+<p>数据索引下标还是从0开始的。</p>
+<blockquote>
+<p>布尔值查询</p>
+</blockquote>
+<p>must(and)，所有条件都要符合</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502133841432.png" alt="image-20210502133841432"  />
+</p>
+<p>should（or）</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134218685.png" alt="image-20210502134218685"  />
+</p>
+<p>must_not(not)</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134406318.png" alt="image-20210502134406318"  />
+</p>
+<p>过滤器 filter</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134822173.png" alt="image-20210502134822173"  />
+</p>
+<ul>
+<li>gt 大于</li>
+<li>gte 大于等于</li>
+<li>lt 小于</li>
+<li>lte 小于等于</li>
+</ul>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502135140135.png" alt="image-20210502135140135"  />
+</p>
+<blockquote>
+<p>匹配多个条件，多个条件使用空格隔开，只要满足其一就可以被查出</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502135640416.png" alt="image-20210502135640416"  />
+</p>
+<blockquote>
+<p>精确查询！</p>
+</blockquote>
+<p>term查询是直接通过倒排索引指定的词条进行精确查询的！</p>
+<p>关于分词：</p>
+<ul>
+<li>
+<p>term，直接查询精确的</p>
+</li>
+<li>
+<p>match，会使用分词器解析！（先分析文档，然后通过分析的文档进行查询！）</p>
+</li>
+</ul>
+<p><strong>两个类型 text keyword</strong></p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141100123.png" alt="image-20210502141100123"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141138807.png" alt="image-20210502141138807"  />
+</p>
+<p>keyword类型字段不会被分词器解析</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141723998.png" alt="image-20210502141723998"  />
+</p>
+<blockquote>
+<p>多值匹配精确查询</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502142645237.png" alt="image-20210502142645237"  />
+</p>
+<blockquote>
+<p>高亮查询</p>
+</blockquote>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502143502872.png" alt="image-20210502143502872"  />
+</p>
+<p>自定义高亮的样式</p>
+<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502143826249.png" alt="image-20210502143826249"  />
+</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://cbyweb.github.io/">cby的博客</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
