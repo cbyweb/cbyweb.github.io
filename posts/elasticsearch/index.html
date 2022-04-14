@@ -267,11 +267,11 @@ bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options jav
 <h2 id="solr简介">Solr简介<a hidden class="anchor" aria-hidden="true" href="#solr简介">#</a></h2>
 <p>也是基于Lucene就行封装的。</p>
 <h2 id="elasticsearch和solr的比较">ElasticSearch和Solr的比较<a hidden class="anchor" aria-hidden="true" href="#elasticsearch和solr的比较">#</a></h2>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151011037.png" alt="image-20210501151011037"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501151011037.png" alt="image-20210501151011037"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151021666.png" alt="image-20210501151021666"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501151021666.png" alt="image-20210501151021666"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501151059259.png" alt="image-20210501151059259"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501151059259.png" alt="image-20210501151059259"  />
 </p>
 <p><strong>ElasticSearch vs Solr 总结</strong></p>
 <p>1、es基本是开箱即用，非常简单。Solr安装略微复杂。</p>
@@ -294,13 +294,13 @@ bin 启动目录 config 配置文件 	log4j2 日志配置文件 	jvm.options jav
 <p>ElasticSearch: <a href="https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D">https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D</a>
 logstash: <a href="https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D">https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D</a>
 kibana:https://www.elastic.co/cn/downloads/kibana</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501153342518.png" alt="image-20210501153342518"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501153342518.png" alt="image-20210501153342518"  />
 </p>
 <blockquote>
 <p>安装</p>
 </blockquote>
 <p>1、解压</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501153428737.png" alt="image-20210501153428737"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501153428737.png" alt="image-20210501153428737"  />
 </p>
 <p>2、熟悉目录</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bin 启动目录
@@ -313,7 +313,7 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 </span></span><span style="display:flex;"><span>modules 功能模块
 </span></span><span style="display:flex;"><span>plugins 插件！ik分词器
 </span></span></code></pre></div><p>3、启动，访问9200</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501154544473.png" alt="image-20210501154544473"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501154544473.png" alt="image-20210501154544473"  />
 </p>
 <p>4、访问测试</p>
 <p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501154730281.png" alt="image-20210501154730281"  />
@@ -330,7 +330,7 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">http.cors.enabled:true</span>
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">http.cors.allow-origin:&#34;*&#34;</span>
 </span></span></code></pre></div><p>4、重启es服务，再次连接</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501160952011.png" alt="image-20210501160952011"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501160952011.png" alt="image-20210501160952011"  />
 </p>
 <p>把索引当做一个数据库！(可以建立索引（库) ，文档（库中的数据！））</p>
 <blockquote>
@@ -351,20 +351,20 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <p>启动测试：</p>
 </blockquote>
 <p>1、解压后目录</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165008911.png" alt="image-20210501165008911"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501165008911.png" alt="image-20210501165008911"  />
 </p>
 <p>2、启动</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165643852.png" alt="image-20210501165643852"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501165643852.png" alt="image-20210501165643852"  />
 </p>
 <p>3、访问测试</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501165823592.png" alt="image-20210501165823592"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501165823592.png" alt="image-20210501165823592"  />
 </p>
 <p>4、开发工具（Postman、curl、head、谷歌浏览器插件测试！）</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501170315976.png" alt="image-20210501170315976"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501170315976.png" alt="image-20210501170315976"  />
 </p>
 <p>之后的所有操作都是在这里进行编写！</p>
 <p>5、汉化！修改Kibana.yml文件配置即可！zh-CN，重启！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501170955346.png" alt="image-20210501170955346"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501170955346.png" alt="image-20210501170955346"  />
 </p>
 <h1 id="es核心概念">ES核心概念<a hidden class="anchor" aria-hidden="true" href="#es核心概念">#</a></h1>
 <p>1、索引</p>
@@ -378,13 +378,13 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <blockquote>
 <p>elasticsearch是面向文档的，关系型数据库和ElasticSearch客观对比！一切都是json！</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501175922696.png" alt="image-20210501175922696"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501175922696.png" alt="image-20210501175922696"  />
 </p>
 <p>ElasticSearch（集群）中可以包含多个索引（数据库），每个索引中可以包含多个类型（表），每个类型下又包含多个文档（行），每个文档中又包含多个字段（列）。</p>
 <p><strong>物理设计：</strong></p>
 <p>ElasticSearch在后台把每一个<strong>索引划分成多分片</strong>，每份分片可以在集群中的不同服务器间迁移</p>
 <p>一个人就是一个集群！默认的集群名字就是elasticsearch</p>
-<p><strong><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501180327258.png" alt="image-20210501180327258"  />
+<p><strong><img loading="lazy" src="ElasticSearch.assets/image-20210501180327258.png" alt="image-20210501180327258"  />
 </strong></p>
 <p><strong>逻辑设计</strong>：</p>
 <p>一个索引类型中，包含多个文档，比如说文档1，文档2。当我们索引一篇文档时，可以通过这样的一些信息找到它：索引-&gt;类型-&gt;文档ID，通过这个组合我们就能索引到某个具体的文档。注意：ID不必是整数，实际上它是个字符串。</p>
@@ -414,20 +414,20 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <p>索引是映射类型的容器，ElasticSearch中的索引是一个非常大的文档集合。索引存储了映射类型的字段和其他设置。然后它们被存储到了各个分片上了。</p>
 <p><strong>物理设计：节点和分片如何工作</strong></p>
 <p>一个集群至少有一个节点，而一个节点就是一个ElasticSearch进程，节点可以有多个索引，如果你要创建索引，那么索引将会有5个分片（primary shard,又称主分片）构成的，每个主分片会有一个副本（replica shard，又称复制分片）</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501183856057.png" alt="image-20210501183856057"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501183856057.png" alt="image-20210501183856057"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501183256952.png" alt="image-20210501183256952"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501183256952.png" alt="image-20210501183256952"  />
 </p>
 <p>上图是三个节点的集群，可以看到主分片和对应的复制分片都不会在同一个节点内，这样有利于某个节点挂掉了，数据也不至于丢失。实际上，一个分片是一个Lucene索引，一个包含<strong>倒排索引</strong>的文件目录，倒排索引的结构使得ElasticSearch在不扫描全部文档的情况下，就能告诉你哪些文件包含特定的关键字。不过，倒排索引是什么？</p>
 <blockquote>
 <p>倒排索引</p>
 </blockquote>
 <p>ElasticSearch使用一种称为倒排索引的结构，采用Lucene倒排索引作为底层。这种结构适用于快速的全文搜索，一个索引由文档中所有不重复的列表构成，对于每一个词，都有一个包含它的文档列表。例如现有两个文档，每个文档包含如下内容：</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184540907.png" alt="image-20210501184540907"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501184540907.png" alt="image-20210501184540907"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184718132.png" alt="image-20210501184718132"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501184718132.png" alt="image-20210501184718132"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501184745517.png" alt="image-20210501184745517"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501184745517.png" alt="image-20210501184745517"  />
 </p>
 <h1 id="ik分词器插件">IK分词器插件<a hidden class="anchor" aria-hidden="true" href="#ik分词器插件">#</a></h1>
 <blockquote>
@@ -440,34 +440,34 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 </blockquote>
 <p>1、地址：https://github.com/medcl/elasticsearch-analysis-ik/</p>
 <p>2、下载完毕后，放入ElasticSearch插件中即可！注意版本对应！！！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501203947744.png" alt="image-20210501203947744"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501203947744.png" alt="image-20210501203947744"  />
 </p>
 <p>3、重启观察es，可以看到ik分词器被加载了！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204117838.png" alt="image-20210501204117838"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501204117838.png" alt="image-20210501204117838"  />
 </p>
 <p>4、使用Kibana测试！</p>
 <blockquote>
 <p>查看不同分词效果</p>
 </blockquote>
 <p>ik_smart和ik_max_word，其他中ik_smart为最少切分</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204420004.png" alt="image-20210501204420004"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501204420004.png" alt="image-20210501204420004"  />
 </p>
 <p>ik_max_word为最细粒度划分！穷尽词库可能！！！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501204337918.png" alt="image-20210501204337918"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501204337918.png" alt="image-20210501204337918"  />
 </p>
 <p>自己需要的词，需要自己加到ik分词器的字典中！！！</p>
 <blockquote>
 <p>IK分词器增加自己的配置！</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501205102124.png" alt="image-20210501205102124"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501205102124.png" alt="image-20210501205102124"  />
 </p>
 <p>重启es</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501205814955.png" alt="image-20210501205814955"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501205814955.png" alt="image-20210501205814955"  />
 </p>
 <p>以后，我们需要自己配置分词就在自己定义的dic文件中进行配置即可！！！</p>
 <h1 id="restful风格说明">RestFul风格说明<a hidden class="anchor" aria-hidden="true" href="#restful风格说明">#</a></h1>
 <p>一种软件架构风格，而不是标准，知识提供一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210501210335500.png" alt="image-20210501210335500"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210501210335500.png" alt="image-20210501210335500"  />
 </p>
 <blockquote>
 <p>基本测试</p>
@@ -475,10 +475,10 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <h1 id="关于索引的操作">关于索引的操作<a hidden class="anchor" aria-hidden="true" href="#关于索引的操作">#</a></h1>
 <p>1、创建一个索引！</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PUT /索引名/类型名/文档id
-</span></span></code></pre></div><p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502101336469.png" alt="image-20210502101336469"  />
+</span></span></code></pre></div><p><img loading="lazy" src="ElasticSearch.assets/image-20210502101336469.png" alt="image-20210502101336469"  />
 </p>
 <p>执行后，自动增加了索引！数据也成功添加了</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502101644131.png" alt="image-20210502101644131"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502101644131.png" alt="image-20210502101644131"  />
 </p>
 <p>3、那么name这个字段用不用指定类型呢？毕竟关系选哪个数据库是需要指定类型的！！！</p>
 <ul>
@@ -518,34 +518,34 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 </ul>
 <p>4、指定字段的类型</p>
 <p>创建索引规则</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502102918420.png" alt="image-20210502102918420"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502102918420.png" alt="image-20210502102918420"  />
 </p>
 <p>获得这个规则！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103034887.png" alt="image-20210502103034887"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502103034887.png" alt="image-20210502103034887"  />
 </p>
 <p>5、查看默认的信息</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103348650.png" alt="image-20210502103348650"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502103348650.png" alt="image-20210502103348650"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502103446307.png" alt="image-20210502103446307"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502103446307.png" alt="image-20210502103446307"  />
 </p>
 <p>如果文档字段没有指定类型，那么es就会给我们默认配置字段类型！</p>
 <p>扩展：通过命令查看ElasticSearch索引情况！通过get _cat/ 可以获得es的当前很多信息！！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502104156461.png" alt="image-20210502104156461"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502104156461.png" alt="image-20210502104156461"  />
 </p>
 <blockquote>
 <p>修改 提交还是可以使用PUT即可，覆盖更新</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502104548235.png" alt="image-20210502104548235"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502104548235.png" alt="image-20210502104548235"  />
 </p>
 <p>现在方法</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502105932404.png" alt="image-20210502105932404"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502105932404.png" alt="image-20210502105932404"  />
 </p>
 <blockquote>
 <p>删除索引</p>
 </blockquote>
 <p>通过DELETE命令进行删除!根据你的请求路径来判断是删除索引还是删除文档记录！</p>
 <p>使用RestFul风格是es推荐的！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502110037997.png" alt="image-20210502110037997"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502110037997.png" alt="image-20210502110037997"  />
 </p>
 <h1 id="关于文档的基本操作重点">关于文档的基本操作（重点）<a hidden class="anchor" aria-hidden="true" href="#关于文档的基本操作重点">#</a></h1>
 <blockquote>
@@ -559,61 +559,61 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;desc&#34;</span>:<span style="color:#e6db74">&#34;我是学不死的小白&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;tags&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;技术宅&#34;</span>,<span style="color:#e6db74">&#34;温暖&#34;</span><span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111058712.png" alt="image-20210502111058712"  />
+</span></span></code></pre></div><p><img loading="lazy" src="ElasticSearch.assets/image-20210502111058712.png" alt="image-20210502111058712"  />
 </p>
 <p>2、查询获取数据  GET</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111555541.png" alt="image-20210502111555541"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502111555541.png" alt="image-20210502111555541"  />
 </p>
 <p>3、更新数据 PUT</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502111720622.png" alt="image-20210502111720622"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502111720622.png" alt="image-20210502111720622"  />
 </p>
 <p>4、POST    _updata，推荐使用这种方式</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502112157027.png" alt="image-20210502112157027"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502112157027.png" alt="image-20210502112157027"  />
 </p>
 <p>简单的搜索！</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GET /xiaobai/user/1
 </span></span></code></pre></div><p>简单的条件查询，可以根据默认的映射规则，产生基本的查询！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502112953949.png" alt="image-20210502112953949"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502112953949.png" alt="image-20210502112953949"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502113312815.png" alt="image-20210502113312815"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502113312815-16499453152001.png" alt="image-20210502113312815"  />
 </p>
 <blockquote>
 <p>复杂操作搜索 select（排序，分页，高亮，模糊查询，精确查询！）</p>
 </blockquote>
 <p>正常的条件查询会写成对应的文档，在_search的后面增加参数</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502113811705.png" alt="image-20210502113811705"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502113811705.png" alt="image-20210502113811705"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502114615688.png" alt="image-20210502114615688"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502114615688-16499453215112.png" alt="image-20210502114615688"  />
 </p>
 <p>输出结果，不想要那么多！</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115023035.png" alt="image-20210502115023035"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502115023035.png" alt="image-20210502115023035"  />
 </p>
 <p>使用java操作es，所有的方法和对象就是这里面的key，hits，query ，match等</p>
 <blockquote>
 <p>排序</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115350389.png" alt="image-20210502115350389"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502115350389.png" alt="image-20210502115350389"  />
 </p>
 <blockquote>
 <p>分页查询!</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502115700490.png" alt="image-20210502115700490"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502115700490.png" alt="image-20210502115700490"  />
 </p>
 <p>数据索引下标还是从0开始的。</p>
 <blockquote>
 <p>布尔值查询</p>
 </blockquote>
 <p>must(and)，所有条件都要符合</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502133841432.png" alt="image-20210502133841432"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502133841432.png" alt="image-20210502133841432"  />
 </p>
 <p>should（or）</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134218685.png" alt="image-20210502134218685"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502134218685.png" alt="image-20210502134218685"  />
 </p>
 <p>must_not(not)</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134406318.png" alt="image-20210502134406318"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502134406318-16499453479283.png" alt="image-20210502134406318"  />
 </p>
 <p>过滤器 filter</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502134822173.png" alt="image-20210502134822173"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502134822173.png" alt="image-20210502134822173"  />
 </p>
 <ul>
 <li>gt 大于</li>
@@ -621,12 +621,12 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 <li>lt 小于</li>
 <li>lte 小于等于</li>
 </ul>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502135140135.png" alt="image-20210502135140135"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502135140135-16499453543504.png" alt="image-20210502135140135"  />
 </p>
 <blockquote>
 <p>匹配多个条件，多个条件使用空格隔开，只要满足其一就可以被查出</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502135640416.png" alt="image-20210502135640416"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502135640416.png" alt="image-20210502135640416"  />
 </p>
 <blockquote>
 <p>精确查询！</p>
@@ -642,25 +642,25 @@ kibana:https://www.elastic.co/cn/downloads/kibana</p>
 </li>
 </ul>
 <p><strong>两个类型 text keyword</strong></p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141100123.png" alt="image-20210502141100123"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502141100123.png" alt="image-20210502141100123"  />
 </p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141138807.png" alt="image-20210502141138807"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502141138807.png" alt="image-20210502141138807"  />
 </p>
 <p>keyword类型字段不会被分词器解析</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502141723998.png" alt="image-20210502141723998"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502141723998-16499453669805.png" alt="image-20210502141723998"  />
 </p>
 <blockquote>
 <p>多值匹配精确查询</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502142645237.png" alt="image-20210502142645237"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502142645237.png" alt="image-20210502142645237"  />
 </p>
 <blockquote>
 <p>高亮查询</p>
 </blockquote>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502143502872.png" alt="image-20210502143502872"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502143502872.png" alt="image-20210502143502872"  />
 </p>
 <p>自定义高亮的样式</p>
-<p><img loading="lazy" src="C:%5cUsers%5cHP%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210502143826249.png" alt="image-20210502143826249"  />
+<p><img loading="lazy" src="ElasticSearch.assets/image-20210502143826249-16499453773736.png" alt="image-20210502143826249"  />
 </p>
 
 
